@@ -12,11 +12,37 @@
     "hero_iLBwPd": {
       "type": "hero",
       "blocks": {
+        "text_GgRkCe": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<h4>AUTUMN 2026</h4>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "h4",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "{{ settings.color_palette.background }}",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 20,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "text_J3wfx6": {
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2><strong>BUY ONE, GET ONE FREE</strong></h2>",
+            "text": "<h2><strong>B U Y  O N E, G E T  O N E  F R E E</strong></h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
@@ -27,7 +53,7 @@
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
-            "text_color": "",
+            "text_color": "{{ settings.color_palette.background }}",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -38,22 +64,22 @@
           },
           "blocks": {}
         },
-        "text_WKdmPL": {
+        "text_KaiGNw": {
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h5><strong>DRESSES, MATCHING SHIRTS, JUMPSUITS AND ROMPERS</strong></h5>",
+            "text": "<h4><strong>DRESSES, MATCHING SETS, JUMPSUITS & ROMPERS</strong></h4>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
-            "type_preset": "rte",
+            "type_preset": "h4",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
-            "text_color": "",
+            "text_color": "{{ settings.color_palette.background }}",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -64,33 +90,33 @@
           },
           "blocks": {}
         },
-        "text_q6XbWt": {
+        "text_NpfnbK": {
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h5>USE CODE: FREE</h5>",
+            "text": "<h4>USE CODE: FREE</h4>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
-            "type_preset": "rte",
+            "type_preset": "h4",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
-            "text_color": "",
+            "text_color": "{{ settings.color_palette.background }}",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
-            "padding-block-start": 0,
+            "padding-block-start": 20,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {}
         },
-        "button_r77W8e": {
+        "button_aHWgFn": {
           "type": "button",
           "name": "t:names.button",
           "settings": {
@@ -102,10 +128,9 @@
             "custom_button_text": "{{ settings.color_palette.background }}",
             "custom_button_border": "{{ settings.color_palette.background }}",
             "link_text_color": "",
-            "alignment": "center",
-            "width": "custom",
-            "custom_width": 20,
-            "width_mobile": "custom",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
             "custom_width_mobile": 100
           },
           "blocks": {}
@@ -113,6 +138,7 @@
         "group_mATTUY": {
           "type": "group",
           "name": "t:names.group",
+          "disabled": true,
           "settings": {
             "content_direction": "row",
             "vertical_on_mobile": true,
@@ -153,7 +179,6 @@
             "group_U86Qji": {
               "type": "group",
               "name": "t:names.group",
-              "disabled": true,
               "settings": {
                 "content_direction": "column",
                 "vertical_on_mobile": true,
@@ -251,7 +276,6 @@
             "text_ebNxhf": {
               "type": "text",
               "name": "t:names.text",
-              "disabled": true,
               "settings": {
                 "text": "<p>Bring order to the chaos. When all your tech essentials have a dedicated spot on your desk, you don’t have to waste any time searching for them. </p>",
                 "width": "fit-content",
@@ -283,10 +307,11 @@
         }
       },
       "block_order": [
+        "text_GgRkCe",
         "text_J3wfx6",
-        "text_WKdmPL",
-        "text_q6XbWt",
-        "button_r77W8e",
+        "text_KaiGNw",
+        "text_NpfnbK",
+        "button_aHWgFn",
         "group_mATTUY"
       ],
       "name": "t:names.hero",
@@ -305,8 +330,8 @@
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-end",
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
         "gap": 16,
         "section_width": "page-width",
         "section_height": "large",
@@ -564,7 +589,6 @@
                 "custom_button_text": "{{ settings.color_palette.background }}",
                 "custom_button_border": "{{ settings.color_palette.background }}",
                 "link_text_color": "",
-                "alignment": "left",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
