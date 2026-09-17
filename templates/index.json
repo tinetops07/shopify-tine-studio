@@ -102,8 +102,9 @@
             "custom_button_text": "{{ settings.color_palette.background }}",
             "custom_button_border": "{{ settings.color_palette.background }}",
             "link_text_color": "",
+            "alignment": "center",
             "width": "custom",
-            "custom_width": 50,
+            "custom_width": 20,
             "width_mobile": "custom",
             "custom_width_mobile": 100
           },
@@ -563,6 +564,7 @@
                 "custom_button_text": "{{ settings.color_palette.background }}",
                 "custom_button_border": "{{ settings.color_palette.background }}",
                 "link_text_color": "",
+                "alignment": "left",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
