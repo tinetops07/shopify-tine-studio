@@ -534,6 +534,21 @@ p:empty {
   justify-content: right;
 }
 
+.button--align-left {
+  align-self: flex-start;
+  justify-self: start;
+}
+
+.button--align-center {
+  align-self: center;
+  justify-self: center;
+}
+
+.button--align-right {
+  align-self: flex-end;
+  justify-self: end;
+}
+
 .svg-wrapper {
   color: currentcolor;
   display: inline-flex;
