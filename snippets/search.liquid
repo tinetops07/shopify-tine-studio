@@ -4,9 +4,12 @@
   @param {string} [style] - The style of the search action.
   @param {string} [class] - Additional classes for the search action.
   @param {string} [display_style] - The display style ('icon' or 'text').
-  @param {string} [bar_style] - The search bar border and icon position style.
+  @param {string} [icon_position] - The search icon position ('left' or 'right').
   @param {string} [image_search_position] - Image search icon position ('none', 'left', or 'right').
   @param {string} [bar_text] - Text displayed inside the search bar.
+  @param {string} [border_color] - Search bar border color.
+  @param {number} [border_width] - Search bar border width in pixels.
+  @param {number} [border_radius] - Search bar border radius in pixels.
 
   @example
   {% render 'search', style: 'default', class: 'custom-class', display_style: 'icon' %}
@@ -14,7 +17,8 @@
 
 {% unless style == 'none' %}
   <search-button
-    class="search-action{% if display_style == 'text' %} search-action--text search-action--{{ bar_style | default: 'none-left' }}{% endif %}{% if image_search_position != blank and image_search_position != 'none' %} search-action--image-{{ image_search_position }}{% endif %}{% if class != blank %} {{ class | strip }}{% endif %}"
+    class="search-action{% if display_style == 'text' %} search-action--text search-action--icon-{{ icon_position | default: 'left' }}{% endif %}{% if image_search_position != blank and image_search_position != 'none' %} search-action--image-{{ image_search_position }}{% endif %}{% if class != blank %} {{ class | strip }}{% endif %}"
+    {% if display_style == 'text' %}style="--search-border-color: {{ border_color | default: 'currentColor' }}; --search-border-width: {{ border_width | default: 1 }}px; --search-border-radius: {{ border_radius | default: 8 }}px;"{% endif %}
   >
     <button
       on:click="#search-modal/showDialog"
@@ -26,7 +30,7 @@
         {{ bar_text | default: 'Search' }}
       </span>
 
-      <span class="search-action__icon svg-wrapper {% if display_style == 'text' %}search-action__icon--bar{% endif %} {% if display_style != 'icon' and bar_style contains '-right' %}search-action__icon--right{% endif %}">
+      <span class="search-action__icon svg-wrapper {% if display_style == 'text' %}search-action__icon--bar{% endif %}">
         {{ 'icon-search.svg' | inline_asset_content }}
       </span>
     </button>
@@ -50,24 +54,13 @@
 
 {% stylesheet %}
   .search-action {
-    --search-border-radius: var(--style-border-radius-inputs);
-    --search-border-width: var(--style-border-width-inputs);
-
     display: flex;
   }
 
   .search-action--text {
-    border: var(--search-border-width) solid transparent;
-    border-radius: 0;
-  }
-
-  .search-action--text:is(.search-action--sharp-left, .search-action--sharp-right) {
-    border-color: currentColor;
-  }
-
-  .search-action--text:is(.search-action--rounded-left, .search-action--rounded-right) {
-    border-color: currentColor;
+    border: var(--search-border-width) solid var(--search-border-color);
     border-radius: var(--search-border-radius);
+    overflow: hidden;
   }
 
   .search-action--text > button {
@@ -81,7 +74,7 @@
     order: -1;
   }
 
-  .search-action--text .search-action__icon--right {
+  .search-action--text.search-action--icon-right .search-action__icon--bar {
     order: 1;
   }
 
@@ -91,13 +84,10 @@
     justify-content: center;
     width: 2.75rem;
     cursor: pointer;
-    border-inline-start: var(--search-border-width) solid currentColor;
   }
 
   .search-action--image-left .search-action__image-button {
     order: -1;
-    border-inline-start: 0;
-    border-inline-end: var(--search-border-width) solid currentColor;
   }
 
   .search-action__image-button .svg-wrapper {

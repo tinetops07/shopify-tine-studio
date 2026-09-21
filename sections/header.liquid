@@ -135,7 +135,7 @@
     endif
   endif
   capture search
-    render 'search', style: search_style, class: search_class, display_style: search_display_style, bar_style: section.settings.search_bar_style, image_search_position: section.settings.show_image_search, bar_text: section.settings.search_bar_text
+    render 'search', style: search_style, class: search_class, display_style: search_display_style, icon_position: section.settings.search_icon_position, image_search_position: section.settings.show_image_search, bar_text: section.settings.search_bar_text, border_color: section.settings.search_border_color, border_width: section.settings.search_border_width, border_radius: section.settings.search_border_radius
   endcapture
 
   # Skip drawer search under specific conditions:
@@ -149,7 +149,7 @@
   if section.settings.search_row == 'bottom' or search_style != 'none' and skip_drawer_search == false
     # Mobile search duplicate for when search is not in the right order for mobile layout
     capture drawer_search
-      render 'search', class: 'search-action--hidden-on-menu', style: search_style, display_style: search_display_style, bar_style: section.settings.search_bar_style, image_search_position: section.settings.show_image_search, bar_text: section.settings.search_bar_text
+      render 'search', class: 'search-action--hidden-on-menu', style: search_style, display_style: search_display_style, icon_position: section.settings.search_icon_position, image_search_position: section.settings.show_image_search, bar_text: section.settings.search_bar_text, border_color: section.settings.search_border_color, border_width: section.settings.search_border_width, border_radius: section.settings.search_border_radius
     endcapture
   endif
 
@@ -1355,35 +1355,48 @@
     },
     {
       "type": "select",
-      "id": "search_bar_style",
-      "label": "Border and search icon",
+      "id": "search_icon_position",
+      "label": "Search icon position",
       "options": [
         {
-          "value": "none-left",
-          "label": "No border, icon left"
+          "value": "left",
+          "label": "Left"
         },
         {
-          "value": "none-right",
-          "label": "No border, icon right"
-        },
-        {
-          "value": "sharp-left",
-          "label": "Sharp border, icon left"
-        },
-        {
-          "value": "sharp-right",
-          "label": "Sharp border, icon right"
-        },
-        {
-          "value": "rounded-left",
-          "label": "Rounded border, icon left"
-        },
-        {
-          "value": "rounded-right",
-          "label": "Rounded border, icon right"
+          "value": "right",
+          "label": "Right"
         }
       ],
-      "default": "none-left",
+      "default": "left",
+      "visible_if": "{{ section.settings.search_display_style == 'text' }}"
+    },
+    {
+      "type": "color",
+      "id": "search_border_color",
+      "label": "Search bar border color",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.search_display_style == 'text' }}"
+    },
+    {
+      "type": "range",
+      "id": "search_border_width",
+      "label": "Search bar border thickness",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1,
+      "visible_if": "{{ section.settings.search_display_style == 'text' }}"
+    },
+    {
+      "type": "range",
+      "id": "search_border_radius",
+      "label": "Search bar corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 8,
       "visible_if": "{{ section.settings.search_display_style == 'text' }}"
     },
     {
@@ -1626,13 +1639,6 @@
       "default": 0
     },
     {
-      "type": "color",
-      "id": "bottom_border_color",
-      "label": "t:settings.bottom_border_color",
-      "placeholder": "t:settings.default",
-      "visible_if": "{{ section.settings.border_width > 0 }}"
-    },
-    {
       "type": "header",
       "content": "t:content.utilities"
     },
@@ -1652,56 +1658,6 @@
         }
       ],
       "default": "icon"
-    },
-    {
-      "type": "select",
-      "id": "actions_font_size",
-      "label": "t:settings.size",
-      "options": [
-        {
-          "value": "0.75rem",
-          "label": "12px"
-        },
-        {
-          "value": "0.875rem",
-          "label": "14px"
-        },
-        {
-          "value": "1rem",
-          "label": "16px"
-        },
-        {
-          "value": "1.125rem",
-          "label": "18px"
-        }
-      ],
-      "default": "0.875rem",
-      "visible_if": "{{ section.settings.actions_display_style == 'text' }}"
-    },
-    {
-      "type": "select",
-      "id": "actions_font",
-      "label": "t:settings.font",
-      "options": [
-        {
-          "value": "heading",
-          "label": "t:options.heading"
-        },
-        {
-          "value": "subheading",
-          "label": "t:options.subheading"
-        },
-        {
-          "value": "body",
-          "label": "t:options.body"
-        },
-        {
-          "value": "accent",
-          "label": "t:options.accent"
-        }
-      ],
-      "default": "body",
-      "visible_if": "{{ section.settings.actions_display_style == 'text' }}"
     },
     {
       "type": "header",
