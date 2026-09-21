@@ -1305,7 +1305,7 @@
     {
       "type": "checkbox",
       "id": "show_search",
-      "label": "t:settings.search_icon",
+      "label": "t:settings.show_search",
       "default": true
     },
     {
@@ -1610,15 +1610,13 @@
           "label": "Rounded border, icon right"
         }
       ],
-      "default": "none-left",
-      "visible_if": "{{ section.settings.search_display_style == 'text' }}"
+      "default": "none-left"
     },
     {
       "type": "checkbox",
       "id": "show_image_search",
       "label": "Enable image search",
-      "default": false,
-      "visible_if": "{{ section.settings.search_display_style == 'text' }}"
+      "default": false
     },
     {
       "type": "select",
