@@ -140,7 +140,8 @@
       class: search_class,
       display_style: search_display_style,
       bar_style: section.settings.search_bar_style,
-      show_image_search: section.settings.show_image_search
+      image_search_position: section.settings.show_image_search,
+      bar_text: section.settings.search_bar_text
   endcapture
 
   # Skip drawer search under specific conditions:
@@ -159,7 +160,8 @@
         style: search_style,
         display_style: search_display_style,
         bar_style: section.settings.search_bar_style,
-        show_image_search: section.settings.show_image_search
+        image_search_position: section.settings.show_image_search,
+        bar_text: section.settings.search_bar_text
     endcapture
   endif
 
@@ -1305,8 +1307,25 @@
     {
       "type": "checkbox",
       "id": "show_search",
-      "label": "t:settings.show_search",
+      "label": "Show search",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "search_display_style",
+      "label": "Search",
+      "options": [
+        {
+          "value": "text",
+          "label": "Search bar"
+        },
+        {
+          "value": "icon",
+          "label": "Search icon"
+        }
+      ],
+      "default": "text",
+      "visible_if": "{{ section.settings.show_search }}"
     },
     {
       "type": "select",
@@ -1323,7 +1342,7 @@
         }
       ],
       "default": "right",
-      "visible_if": "{{ section.settings.show_search }}"
+      "visible_if": "{{ section.settings.show_search and section.settings.search_display_style == 'icon' }}"
     },
     {
       "type": "select",
@@ -1340,7 +1359,7 @@
         }
       ],
       "default": "top",
-      "visible_if": "{{ section.settings.show_search }}"
+      "visible_if": "{{ section.settings.show_search and section.settings.search_display_style == 'icon' }}"
     },
     {
       "type": "header",
@@ -1561,26 +1580,6 @@
       "visible_if": "{{ section.settings.border_width > 0 }}"
     },
     {
-      "type": "header",
-      "content": "t:content.utilities"
-    },
-    {
-      "type": "select",
-      "id": "search_display_style",
-      "label": "Search display",
-      "options": [
-        {
-          "value": "icon",
-          "label": "Icon"
-        },
-        {
-          "value": "text",
-          "label": "Search bar"
-        }
-      ],
-      "default": "icon"
-    },
-    {
       "type": "select",
       "id": "search_bar_style",
       "label": "Search bar style",
@@ -1610,13 +1609,36 @@
           "label": "Rounded border, icon right"
         }
       ],
-      "default": "none-left"
+      "default": "none-left",
+      "visible_if": "{{ section.settings.show_search and section.settings.search_display_style == 'text' }}"
     },
     {
-      "type": "checkbox",
+      "type": "select",
       "id": "show_image_search",
-      "label": "Enable image search",
-      "default": false
+      "label": "Image search icon",
+      "options": [
+        {
+          "value": "none",
+          "label": "Do not show"
+        },
+        {
+          "value": "left",
+          "label": "Show on left"
+        },
+        {
+          "value": "right",
+          "label": "Show on right"
+        }
+      ],
+      "default": "none",
+      "visible_if": "{{ section.settings.show_search and section.settings.search_display_style == 'text' }}"
+    },
+    {
+      "type": "text",
+      "id": "search_bar_text",
+      "label": "Search bar text",
+      "default": "Search",
+      "visible_if": "{{ section.settings.show_search and section.settings.search_display_style == 'text' }}"
     },
     {
       "type": "select",
@@ -1683,23 +1705,6 @@
         }
       ],
       "default": "body",
-      "visible_if": "{{ section.settings.actions_display_style == 'text' }}"
-    },
-    {
-      "type": "select",
-      "id": "actions_text_case",
-      "label": "t:settings.case",
-      "options": [
-        {
-          "value": "none",
-          "label": "t:options.default"
-        },
-        {
-          "value": "uppercase",
-          "label": "t:options.uppercase"
-        }
-      ],
-      "default": "none",
       "visible_if": "{{ section.settings.actions_display_style == 'text' }}"
     },
     {

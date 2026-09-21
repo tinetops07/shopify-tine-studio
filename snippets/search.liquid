@@ -5,7 +5,8 @@
   @param {string} [class] - Additional classes for the search action.
   @param {string} [display_style] - The display style ('icon' or 'text').
   @param {string} [bar_style] - The search bar border and icon position style.
-  @param {boolean} [show_image_search] - Whether to show the image search picker.
+  @param {string} [image_search_position] - Image search icon position ('none', 'left', or 'right').
+  @param {string} [bar_text] - Text displayed inside the search bar.
 
   @example
   {% render 'search', style: 'default', class: 'custom-class', display_style: 'icon' %}
@@ -13,7 +14,7 @@
 
 {% unless style == 'none' %}
   <search-button
-    class="search-action{% if display_style == 'text' %} search-action--text search-action--{{ bar_style | default: 'none-left' }}{% endif %}{% if show_image_search %} search-action--image-search{% endif %}{% if class != blank %} {{ class | strip }}{% endif %}"
+    class="search-action{% if display_style == 'text' %} search-action--text search-action--{{ bar_style | default: 'none-left' }}{% endif %}{% if image_search_position != blank and image_search_position != 'none' %} search-action--image-{{ image_search_position }}{% endif %}{% if class != blank %} {{ class | strip }}{% endif %}"
   >
     <button
       on:click="#search-modal/showDialog"
@@ -21,15 +22,15 @@
       aria-label="{{ 'content.search_input_label' | t }}"
       aria-haspopup="dialog"
     >
-      <span class="search-action__label {% if display_style == 'icon' %}hidden{% else %}mobile:hidden{% endif %}">
-        {{ 'content.search' | t }}
+      <span class="search-action__label {% if display_style == 'icon' %}hidden{% endif %}">
+        {{ bar_text | default: 'Search' }}
       </span>
 
-      <span class="search-action__icon svg-wrapper {% if display_style != 'icon' %}desktop:hidden{% endif %}">
+      <span class="search-action__icon svg-wrapper {% if display_style == 'text' %}search-action__icon--bar{% endif %} {% if display_style != 'icon' and bar_style contains '-right' %}search-action__icon--right{% endif %}">
         {{ 'icon-search.svg' | inline_asset_content }}
       </span>
     </button>
-    {% if show_image_search and display_style == 'text' %}
+    {% if image_search_position != blank and image_search_position != 'none' and display_style == 'text' %}
       <label class="search-action__image-button" title="Search by image">
         <span class="visually-hidden">Search by image</span>
         <span class="svg-wrapper">
@@ -76,9 +77,12 @@
     padding-inline: var(--padding-sm);
   }
 
-  .search-action--text.search-action--sharp-left > button,
-  .search-action--text.search-action--rounded-left > button {
-    flex-direction: row-reverse;
+  .search-action--text .search-action__icon--bar {
+    order: -1;
+  }
+
+  .search-action--text .search-action__icon--right {
+    order: 1;
   }
 
   .search-action__image-button {
@@ -90,14 +94,16 @@
     border-inline-start: var(--search-border-width) solid currentColor;
   }
 
+  .search-action--image-left .search-action__image-button {
+    order: -1;
+    border-inline-start: 0;
+    border-inline-end: var(--search-border-width) solid currentColor;
+  }
+
   .search-action__image-button .svg-wrapper {
     display: flex;
     width: 1.25rem;
     height: 1.25rem;
-  }
-
-  .search-action--image-selected .search-action__image-button {
-    color: var(--color-primary-button-text);
   }
 
   @media screen and (max-width: 749px) {
