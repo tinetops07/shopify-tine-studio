@@ -135,7 +135,7 @@
     endif
   endif
   capture search
-    render 'search', style: search_style, class: search_class, display_style: search_display_style, icon_position: section.settings.search_icon_position, image_search_position: section.settings.show_image_search, bar_text: section.settings.search_bar_text, border_color: section.settings.search_border_color, border_width: section.settings.search_border_width, border_radius: section.settings.search_border_radius
+    render 'search', style: search_style, class: search_class, display_style: search_display_style, icon_position: section.settings.search_icon_position, image_search_position: section.settings.show_image_search, bar_text: section.settings.search_bar_text, border_color: section.settings.search_border_color, border_width: section.settings.search_border_width, border_radius: section.settings.search_border_radius, text_color: section.settings.search_text_color
   endcapture
 
   # Skip drawer search under specific conditions:
@@ -149,7 +149,7 @@
   if section.settings.search_row == 'bottom' or search_style != 'none' and skip_drawer_search == false
     # Mobile search duplicate for when search is not in the right order for mobile layout
     capture drawer_search
-      render 'search', class: 'search-action--hidden-on-menu', style: search_style, display_style: search_display_style, icon_position: section.settings.search_icon_position, image_search_position: section.settings.show_image_search, bar_text: section.settings.search_bar_text, border_color: section.settings.search_border_color, border_width: section.settings.search_border_width, border_radius: section.settings.search_border_radius
+      render 'search', class: 'search-action--hidden-on-menu', style: search_style, display_style: search_display_style, icon_position: section.settings.search_icon_position, image_search_position: section.settings.show_image_search, bar_text: section.settings.search_bar_text, border_color: section.settings.search_border_color, border_width: section.settings.search_border_width, border_radius: section.settings.search_border_radius, text_color: section.settings.search_text_color
     endcapture
   endif
 
@@ -1428,6 +1428,13 @@
       "visible_if": "{{ section.settings.search_display_style == 'text' }}"
     },
     {
+      "type": "color",
+      "id": "search_text_color",
+      "label": "Search text color",
+      "default": "#111111",
+      "visible_if": "{{ section.settings.search_display_style == 'text' }}"
+    },
+    {
       "type": "header",
       "content": "t:content.localization"
     },
@@ -1619,13 +1626,6 @@
           "label": "t:options.full"
         }
       ],
-      "visible_if": "{{ section.settings.divider_width > 0 and section.settings.menu_row == 'bottom' or section.settings.localization_row == 'bottom' or section.settings.search_row == 'bottom' }}"
-    },
-    {
-      "type": "color",
-      "id": "divider_color",
-      "label": "t:settings.divider_color",
-      "placeholder": "t:settings.default",
       "visible_if": "{{ section.settings.divider_width > 0 and section.settings.menu_row == 'bottom' or section.settings.localization_row == 'bottom' or section.settings.search_row == 'bottom' }}"
     },
     {
