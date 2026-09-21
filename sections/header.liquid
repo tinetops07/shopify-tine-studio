@@ -135,13 +135,7 @@
     endif
   endif
   capture search
-    render 'search',
-      style: search_style,
-      class: search_class,
-      display_style: search_display_style,
-      bar_style: section.settings.search_bar_style,
-      image_search_position: section.settings.show_image_search,
-      bar_text: section.settings.search_bar_text
+    render 'search', style: search_style, class: search_class, display_style: search_display_style, bar_style: section.settings.search_bar_style, image_search_position: section.settings.show_image_search, bar_text: section.settings.search_bar_text
   endcapture
 
   # Skip drawer search under specific conditions:
@@ -155,13 +149,7 @@
   if section.settings.search_row == 'bottom' or search_style != 'none' and skip_drawer_search == false
     # Mobile search duplicate for when search is not in the right order for mobile layout
     capture drawer_search
-      render 'search',
-        class: 'search-action--hidden-on-menu',
-        style: search_style,
-        display_style: search_display_style,
-        bar_style: section.settings.search_bar_style,
-        image_search_position: section.settings.show_image_search,
-        bar_text: section.settings.search_bar_text
+      render 'search', class: 'search-action--hidden-on-menu', style: search_style, display_style: search_display_style, bar_style: section.settings.search_bar_style, image_search_position: section.settings.show_image_search, bar_text: section.settings.search_bar_text
     endcapture
   endif
 
