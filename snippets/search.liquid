@@ -35,19 +35,65 @@
       </span>
     </button>
     {% if image_search_position != blank and image_search_position != 'none' and display_style == 'text' %}
-      <label class="search-action__image-button" title="Search by image">
-        <span class="visually-hidden">Search by image</span>
-        <span class="svg-wrapper">
-          {{ 'icon-image-search.svg' | inline_asset_content }}
-        </span>
-        <input
-          type="file"
-          accept="image/*"
-          class="visually-hidden"
-          aria-label="Search by image"
-          onchange="this.closest('search-button').classList.toggle('search-action--image-selected', this.files.length > 0)"
-        >
-      </label>
+      <details class="search-action__image-search">
+        <summary class="search-action__image-button" title="Search by image">
+          <span class="visually-hidden">Search by image</span>
+          <span class="svg-wrapper">
+            {{ 'icon-image-search.svg' | inline_asset_content }}
+          </span>
+        </summary>
+        <div class="search-action__image-panel">
+          <div class="search-action__image-panel-header">
+            <span class="svg-wrapper">
+              {{ 'icon-image-search.svg' | inline_asset_content }}
+            </span>
+            <div class="search-action__image-panel-heading">Search By Image</div>
+            <button
+              type="button"
+              class="button-unstyled search-action__image-close"
+              aria-label="Close image search"
+              onclick="this.closest('details').removeAttribute('open')"
+            >
+              <span class="svg-wrapper">
+                {{ 'icon-caret.svg' | inline_asset_content }}
+              </span>
+            </button>
+          </div>
+          <label class="search-action__dropzone">
+            <span class="search-action__dropzone-copy">Drag an image here or</span>
+            <span class="search-action__upload-button">
+              <span class="svg-wrapper">
+                {{ 'icon-image-search.svg' | inline_asset_content }}
+              </span>
+              Upload photo
+            </span>
+            <input type="file" accept="image/*" class="visually-hidden">
+          </label>
+          <div class="search-action__image-divider"><span>OR</span></div>
+          <label class="search-action__image-url">
+            <span class="svg-wrapper">
+              {{ 'icon-link.svg' | inline_asset_content }}
+            </span>
+            <input type="url" placeholder="Paste an image link" aria-label="Paste an image link">
+          </label>
+          <div class="search-action__examples-heading">You can try one of these styles below</div>
+          <div class="search-action__examples">
+            {% for product in collections.all.products limit: 4 %}
+              {% if product.featured_image %}
+                <div class="search-action__example">
+                  <img
+                    src="{{ product.featured_image | image_url: width: 320 }}"
+                    alt="{{ product.title | escape }}"
+                    loading="lazy"
+                    width="160"
+                    height="220"
+                  >
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </details>
     {% endif %}
   </search-button>
 {% endunless %}
@@ -60,7 +106,7 @@
   .search-action--text {
     border: var(--search-border-width) solid var(--search-border-color);
     border-radius: var(--search-border-radius);
-    overflow: hidden;
+    position: relative;
   }
 
   .search-action--text > button {
@@ -89,6 +135,171 @@
     color: currentColor;
   }
 
+  .search-action__image-search {
+    position: relative;
+  }
+
+  .search-action__image-search summary {
+    list-style: none;
+  }
+
+  .search-action__image-search summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .search-action__image-panel {
+    position: absolute;
+    z-index: 5;
+    top: calc(100% + var(--gap-sm));
+    right: 0;
+    display: grid;
+    gap: var(--gap-sm);
+    width: min(32rem, calc(100vw - 1.5rem));
+    padding: var(--padding-sm);
+    color: var(--color-foreground);
+    background: var(--color-background);
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.12);
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-popover);
+  }
+
+  .search-action__image-panel-header {
+    display: grid;
+    grid-template-columns: 2rem 1fr 2rem;
+    align-items: center;
+    min-height: 3rem;
+    padding-inline: var(--padding-sm);
+  }
+
+  .search-action__image-panel-header > .svg-wrapper {
+    display: flex;
+    width: 1.75rem;
+    height: 1.75rem;
+    color: rgb(var(--color-foreground-rgb) / 0.35);
+  }
+
+  .search-action__image-panel-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .search-action__image-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .search-action__image-close .svg-wrapper {
+    display: flex;
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: rotate(180deg);
+  }
+
+  .search-action__dropzone {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--gap-xs);
+    justify-items: center;
+    align-items: center;
+    min-height: 10rem;
+    padding: var(--padding-lg);
+    text-align: center;
+    cursor: pointer;
+    background: rgb(var(--color-foreground-rgb) / 0.025);
+    border: 2px dashed rgb(var(--color-foreground-rgb) / 0.1);
+    border-radius: 0.75rem;
+  }
+
+  .search-action__upload-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-xs);
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    border: 2px solid currentColor;
+    border-radius: 999px;
+  }
+
+  .search-action__upload-button .svg-wrapper {
+    display: flex;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .search-action__image-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+    color: var(--color-foreground);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .search-action__image-divider::before,
+  .search-action__image-divider::after {
+    flex: 1;
+    height: 1px;
+    content: '';
+    background: rgb(var(--color-foreground-rgb) / 0.15);
+  }
+
+  .search-action__image-url {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+    padding: 0.7rem 1rem;
+    background: rgb(var(--color-foreground-rgb) / 0.04);
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.12);
+    border-radius: 999px;
+  }
+
+  .search-action__image-url > .svg-wrapper {
+    display: flex;
+    flex: 0 0 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: rgb(var(--color-foreground-rgb) / 0.65);
+  }
+
+  .search-action__image-url input {
+    min-width: 0;
+    width: 100%;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    outline: 0;
+  }
+
+  .search-action__examples-heading {
+    margin-block-start: var(--padding-xs);
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  .search-action__examples {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap-sm);
+  }
+
+  .search-action__example {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: rgb(var(--color-foreground-rgb) / 0.05);
+  }
+
+  .search-action__example img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .search-action--image-left .search-action__image-button {
     order: -1;
   }
@@ -98,6 +309,20 @@
     flex: 0 0 1.25rem;
     width: 1.25rem;
     height: 1.25rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .search-action__image-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      right: auto;
+      transform: translate(-50%, -50%);
+    }
+
+    .search-action__dropzone {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media screen and (max-width: 749px) {
