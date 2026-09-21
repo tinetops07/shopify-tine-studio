@@ -9,6 +9,7 @@
 
   assign rows = 'top,bottom' | split: ','
   assign search_style = 'none'
+  assign search_display_style = section.settings.search_display_style | default: 'icon'
 
   if section.settings.show_search
     assign search_style = 'modal'
@@ -134,7 +135,7 @@
     endif
   endif
   capture search
-    render 'search', style: search_style, class: search_class, display_style: section.settings.search_display_style
+    render 'search', style: search_style, class: search_class, display_style: search_display_style
   endcapture
 
   # Skip drawer search under specific conditions:
@@ -148,7 +149,7 @@
   if section.settings.search_row == 'bottom' or search_style != 'none' and skip_drawer_search == false
     # Mobile search duplicate for when search is not in the right order for mobile layout
     capture drawer_search
-      render 'search', class: 'search-action--hidden-on-menu', style: search_style, display_style: section.settings.search_display_style
+      render 'search', class: 'search-action--hidden-on-menu', style: search_style, display_style: search_display_style
     endcapture
   endif
 
@@ -1254,48 +1255,8 @@
       "content": "t:content.logo"
     },
     {
-      "type": "select",
-      "id": "logo_position",
-      "label": "t:settings.position",
-      "options": [
-        {
-          "value": "left",
-          "label": "t:options.left"
-        },
-        {
-          "value": "center",
-          "label": "t:options.center"
-        },
-        {
-          "value": "right",
-          "label": "t:options.right"
-        }
-      ],
-      "default": "center"
-    },
-    {
       "type": "header",
       "content": "t:content.menu"
-    },
-    {
-      "type": "select",
-      "id": "menu_position",
-      "label": "t:settings.position",
-      "options": [
-        {
-          "value": "left",
-          "label": "t:options.left"
-        },
-        {
-          "value": "center",
-          "label": "t:options.center"
-        },
-        {
-          "value": "right",
-          "label": "t:options.right"
-        }
-      ],
-      "default": "left"
     },
     {
       "type": "select",
@@ -1766,13 +1727,6 @@
       "id": "enable_transparent_header_home",
       "label": "t:settings.transparent_background",
       "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "home_inverse_logo",
-      "label": "t:settings.inverse_logo",
-      "default": false,
-      "visible_if": "{{ section.settings.enable_transparent_header_home }}"
     },
     {
       "type": "color",
