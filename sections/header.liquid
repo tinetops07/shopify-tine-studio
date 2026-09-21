@@ -135,7 +135,12 @@
     endif
   endif
   capture search
-    render 'search', style: search_style, class: search_class, display_style: search_display_style
+    render 'search',
+      style: search_style,
+      class: search_class,
+      display_style: search_display_style,
+      bar_style: section.settings.search_bar_style,
+      show_image_search: section.settings.show_image_search
   endcapture
 
   # Skip drawer search under specific conditions:
@@ -149,7 +154,12 @@
   if section.settings.search_row == 'bottom' or search_style != 'none' and skip_drawer_search == false
     # Mobile search duplicate for when search is not in the right order for mobile layout
     capture drawer_search
-      render 'search', class: 'search-action--hidden-on-menu', style: search_style, display_style: search_display_style
+      render 'search',
+        class: 'search-action--hidden-on-menu',
+        style: search_style,
+        display_style: search_display_style,
+        bar_style: section.settings.search_bar_style,
+        show_image_search: section.settings.show_image_search
     endcapture
   endif
 
@@ -1572,6 +1582,46 @@
     },
     {
       "type": "select",
+      "id": "search_bar_style",
+      "label": "Search bar style",
+      "options": [
+        {
+          "value": "none-left",
+          "label": "No border, icon left"
+        },
+        {
+          "value": "none-right",
+          "label": "No border, icon right"
+        },
+        {
+          "value": "sharp-left",
+          "label": "Sharp border, icon left"
+        },
+        {
+          "value": "sharp-right",
+          "label": "Sharp border, icon right"
+        },
+        {
+          "value": "rounded-left",
+          "label": "Rounded border, icon left"
+        },
+        {
+          "value": "rounded-right",
+          "label": "Rounded border, icon right"
+        }
+      ],
+      "default": "none-left",
+      "visible_if": "{{ section.settings.search_display_style == 'text' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_search",
+      "label": "Enable image search",
+      "default": false,
+      "visible_if": "{{ section.settings.search_display_style == 'text' }}"
+    },
+    {
+      "type": "select",
       "id": "actions_display_style",
       "label": "t:settings.actions_display_style",
       "info": "t:info.actions_display_style",
@@ -1746,13 +1796,6 @@
       "default": false
     },
     {
-      "type": "checkbox",
-      "id": "product_inverse_logo",
-      "label": "t:settings.inverse_logo",
-      "default": false,
-      "visible_if": "{{ section.settings.enable_transparent_header_product }}"
-    },
-    {
       "type": "color",
       "id": "text_color_transparent_product",
       "label": "t:settings.text_color_transparent",
@@ -1768,13 +1811,6 @@
       "id": "enable_transparent_header_collection",
       "label": "t:settings.transparent_background",
       "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "collection_inverse_logo",
-      "label": "t:settings.inverse_logo",
-      "default": false,
-      "visible_if": "{{ section.settings.enable_transparent_header_collection }}"
     },
     {
       "type": "color",
