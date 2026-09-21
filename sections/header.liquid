@@ -1342,7 +1342,7 @@
         }
       ],
       "default": "right",
-      "visible_if": "{{ section.settings.show_search and section.settings.search_display_style == 'icon' }}"
+      "visible_if": "{{ section.settings.search_display_style == 'icon' }}"
     },
     {
       "type": "select",
@@ -1359,7 +1359,72 @@
         }
       ],
       "default": "top",
-      "visible_if": "{{ section.settings.show_search and section.settings.search_display_style == 'icon' }}"
+      "visible_if": "{{ section.settings.search_display_style == 'icon' }}"
+    },
+    {
+      "type": "header",
+      "content": "Search bar options"
+    },
+    {
+      "type": "select",
+      "id": "search_bar_style",
+      "label": "Border and search icon",
+      "options": [
+        {
+          "value": "none-left",
+          "label": "No border, icon left"
+        },
+        {
+          "value": "none-right",
+          "label": "No border, icon right"
+        },
+        {
+          "value": "sharp-left",
+          "label": "Sharp border, icon left"
+        },
+        {
+          "value": "sharp-right",
+          "label": "Sharp border, icon right"
+        },
+        {
+          "value": "rounded-left",
+          "label": "Rounded border, icon left"
+        },
+        {
+          "value": "rounded-right",
+          "label": "Rounded border, icon right"
+        }
+      ],
+      "default": "none-left",
+      "visible_if": "{{ section.settings.search_display_style == 'text' }}"
+    },
+    {
+      "type": "select",
+      "id": "show_image_search",
+      "label": "Image search icon",
+      "options": [
+        {
+          "value": "none",
+          "label": "Do not show"
+        },
+        {
+          "value": "left",
+          "label": "Show on left"
+        },
+        {
+          "value": "right",
+          "label": "Show on right"
+        }
+      ],
+      "default": "none",
+      "visible_if": "{{ section.settings.search_display_style == 'text' }}"
+    },
+    {
+      "type": "text",
+      "id": "search_bar_text",
+      "label": "Text inside search bar",
+      "default": "Search",
+      "visible_if": "{{ section.settings.search_display_style == 'text' }}"
     },
     {
       "type": "header",
@@ -1580,65 +1645,8 @@
       "visible_if": "{{ section.settings.border_width > 0 }}"
     },
     {
-      "type": "select",
-      "id": "search_bar_style",
-      "label": "Search bar style",
-      "options": [
-        {
-          "value": "none-left",
-          "label": "No border, icon left"
-        },
-        {
-          "value": "none-right",
-          "label": "No border, icon right"
-        },
-        {
-          "value": "sharp-left",
-          "label": "Sharp border, icon left"
-        },
-        {
-          "value": "sharp-right",
-          "label": "Sharp border, icon right"
-        },
-        {
-          "value": "rounded-left",
-          "label": "Rounded border, icon left"
-        },
-        {
-          "value": "rounded-right",
-          "label": "Rounded border, icon right"
-        }
-      ],
-      "default": "none-left",
-      "visible_if": "{{ section.settings.show_search and section.settings.search_display_style == 'text' }}"
-    },
-    {
-      "type": "select",
-      "id": "show_image_search",
-      "label": "Image search icon",
-      "options": [
-        {
-          "value": "none",
-          "label": "Do not show"
-        },
-        {
-          "value": "left",
-          "label": "Show on left"
-        },
-        {
-          "value": "right",
-          "label": "Show on right"
-        }
-      ],
-      "default": "none",
-      "visible_if": "{{ section.settings.show_search and section.settings.search_display_style == 'text' }}"
-    },
-    {
-      "type": "text",
-      "id": "search_bar_text",
-      "label": "Search bar text",
-      "default": "Search",
-      "visible_if": "{{ section.settings.show_search and section.settings.search_display_style == 'text' }}"
+      "type": "header",
+      "content": "t:content.utilities"
     },
     {
       "type": "select",
