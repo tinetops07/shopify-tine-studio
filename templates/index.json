@@ -42,7 +42,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2><strong>B U Y &nbsp;O N E, G E T &nbsp;O N E &nbsp;F R E E</strong></h2>",
+            "text": "<h2>B U Y &nbsp;O N E, G E T &nbsp;O N E &nbsp;F R E E</h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
