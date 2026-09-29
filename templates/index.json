@@ -42,7 +42,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2><strong>B U Y  O N E, G E T  O N E  F R E E</strong></h2>",
+            "text": "<h2><strong>B U Y &nbsp;O N E, G E T &nbsp;O N E &nbsp;F R E E</strong></h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
@@ -590,7 +590,7 @@
                 "custom_button_text": "{{ settings.color_palette.background }}",
                 "custom_button_border": "{{ settings.color_palette.background }}",
                 "link_text_color": "",
-                "alignment": "left",
+                "alignment": "center",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",

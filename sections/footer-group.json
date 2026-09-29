@@ -314,6 +314,7 @@
         "copyright",
         "footer_policy_list_rfGrqz"
       ],
+      "disabled": true,
       "settings": {
         "section_width": "page-width",
         "gap": 24,
